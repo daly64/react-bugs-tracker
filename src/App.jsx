@@ -1,34 +1,21 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import React from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {addBug} from './store/bugsSlice'
+import BugsList from "./components/BugsList.jsx";
 
 function App() {
-  const [count, setCount] = useState(0)
+    const dispatch = useDispatch()
+    const bugs = useSelector(state => state.bugs)
 
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    const add = () => {
+        dispatch(addBug({description: 'ss'}))
+    }
+    return (<div>
+        <h1>Hello world</h1>
+        <h2>bugs length : {bugs.length}</h2>
+        <BugsList bugs={bugs}/>
+        <button onClick={add}>add</button>
+    </div>)
 }
 
 export default App
