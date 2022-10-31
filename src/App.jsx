@@ -1,21 +1,28 @@
 import React from 'react'
-import {useDispatch, useSelector} from 'react-redux'
-import {addBug} from './store/bugsSlice'
-import BugsList from "./components/BugsList.jsx";
+import {useDispatch, useSelector} from "react-redux";
+import {addBug, removeBug, resolveBug} from "./store/action.js";
 
 function App() {
+    const bugs = useSelector(state => state)
     const dispatch = useDispatch()
-    const bugs = useSelector(state => state.bugs)
+    const handleAdd = () => dispatch(addBug('hello'))
+    const handleRemove = (id) => dispatch(removeBug(id))
+    const handleResolve = (id) => dispatch(resolveBug(id))
 
-    const add = () => {
-        dispatch(addBug({description: 'ss'}))
-    }
-    return (<div>
+    let bugsList = bugs.map(bug =>
+        <li value={bug.id} key={bug.id}>
+            {bug.description}
+            <button onClick={() => handleRemove(bug.id)}>remove</button>
+            {bug.resolved ? 'yes' : 'no'}
+            <button onClick={() => handleResolve(bug.id)}>resolve</button>
+        </li>)
+
+    return <>
         <h1>Hello world</h1>
-        <h2>bugs length : {bugs.length}</h2>
-        <BugsList bugs={bugs}/>
-        <button onClick={add}>add</button>
-    </div>)
+        <input type="text"/>
+        <button onClick={handleAdd}> add</button>
+        <ol>{bugsList}</ol>
+    </>
 }
 
 export default App
