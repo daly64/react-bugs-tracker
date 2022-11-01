@@ -5,7 +5,8 @@
   {"id": 1, "description": "bug1", "resolved": false},
   {"id": 2, "description": "bug2", "resolved": false},
   {"id": 3, "description": "bug3", "resolved": false},
-  {"id": 4, "description": "bug4", "resolved": false}
+  {"id": 4, "description": "bug4", "resolved": false},
+  {"id": 5, "description": "bug5", "resolved": false}
 ]
 
 }

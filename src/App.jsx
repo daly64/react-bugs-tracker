@@ -1,21 +1,26 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from "react-redux";
-import {addBug, removeBug, resolveBug} from "./store/action.js";
+import {addBug, getBugs, removeBug, resolveBug} from "./store/action.js";
 
 function App() {
-    const bugs = useSelector(state => state)
+    const bugs = useSelector(state => state.data)
+    // const bugs = []
     const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getBugs())
+    }, [dispatch])
+
     const handleAdd = () => dispatch(addBug('hello'))
     const handleRemove = (id) => dispatch(removeBug(id))
     const handleResolve = (id) => dispatch(resolveBug(id))
 
-    let bugsList = bugs.map(bug =>
+    let bugsList = bugs ? bugs.map(bug =>
         <li value={bug.id} key={bug.id}>
             {bug.description}
             <button onClick={() => handleRemove(bug.id)}>remove</button>
             {bug.resolved ? 'yes' : 'no'}
             <button onClick={() => handleResolve(bug.id)}>resolve</button>
-        </li>)
+        </li>) : <></>
 
     return <>
         <h1>Hello world</h1>
