@@ -2,30 +2,66 @@
 import axios from "axios";
 
 const ADD_BUG = 'bugs/add'
+
+const FAILURE = 'bugs/requestFailure';
+const LOADING = 'bugs/requestLoading';
+
+
 const REMOVE_BUG = 'bugs/remove'
 const RESOLVE_BUG = 'bugs/resolve'
 
-const GET_BUGS = 'bugs/get';
-const GET_BUGS_SUCCESS = 'bugs/getSuccess';
-const GET_BUGS_FAILURE = 'bugs/getFailure';
+const GET_BUGS = 'bugs/get'
 
 
 // actions creators
-const addBug = (description) => ({type: ADD_BUG, payload: {description}})
-const removeBug = (id) => ({type: REMOVE_BUG, payload: {id}})
-const resolveBug = (id) => ({type: RESOLVE_BUG, payload: {id}})
+
+const addBug = (description) => {
+    return async (dispatch) => {
+        dispatch({type: LOADING})
+        let bugToAdd = {id: Date.now(), description, resolved: false}
+        return await axios.post('http://localhost:3004/bugs', bugToAdd).then(
+            res => dispatch({type: ADD_BUG, payload: res.data}),
+            err => dispatch({type: FAILURE, payload: err})
+        )
+    }
+}
+const removeBug = (id) => {
+    return async (dispatch) => {
+        dispatch({type: LOADING})
+        return await axios.delete(`http://localhost:3004/bugs/${id}`).then(
+            res => dispatch({type: REMOVE_BUG, payload: {id}}),
+            err => dispatch({type: FAILURE, payload: err})
+        )
+    }
+}
+const resolveBug = (id) => {
+    return async (dispatch) => {
+        dispatch({type: LOADING})
+        let bugToUpdate = (await axios.get(`http://localhost:3004/bugs/${id}`)).data
+        let updatedBug = {...bugToUpdate, resolved: true}
+        return await axios.put(`http://localhost:3004/bugs/${id}`, updatedBug).then(
+            res => dispatch({type: RESOLVE_BUG, payload: {id}}),
+            err => dispatch({type: FAILURE, payload: err})
+        )
+    }
+}
 
 const getBugs = () => {
-    return async (dispatch) => {     //nameless functions
-        // Initial action dispatched
-        dispatch({type: GET_BUGS})
-        // Return promise with success and failure actions
+    return async (dispatch) => {
+        dispatch({type: LOADING})
         return await axios.get('http://localhost:3004/bugs').then(
-            bugs => dispatch({type: GET_BUGS_SUCCESS, payload: bugs.data}),
-            err => dispatch({type: GET_BUGS_FAILURE,payload: err})
-        );
-    };
-};
+            bugs => dispatch({type: GET_BUGS, payload: bugs.data}),
+            err => dispatch({type: FAILURE, payload: err})
+        )
+    }
+}
 
-export {ADD_BUG, REMOVE_BUG, RESOLVE_BUG, GET_BUGS, GET_BUGS_SUCCESS, GET_BUGS_FAILURE}
+export {
+    ADD_BUG,
+    LOADING,
+    FAILURE,
+    REMOVE_BUG,
+    RESOLVE_BUG,
+    GET_BUGS,
+}
 export {addBug, removeBug, resolveBug, getBugs}

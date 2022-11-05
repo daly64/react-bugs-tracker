@@ -1,12 +1,44 @@
 {
-
-  "bugs":[
-  {"id": 0, "description": "bug0", "resolved": false},
-  {"id": 1, "description": "bug1", "resolved": false},
-  {"id": 2, "description": "bug2", "resolved": false},
-  {"id": 3, "description": "bug3", "resolved": false},
-  {"id": 4, "description": "bug4", "resolved": false},
-  {"id": 5, "description": "bug5", "resolved": false}
-]
-
+  "bugs": [
+    {
+      "id": 0,
+      "description": "bug0",
+      "resolved": true
+    },
+    {
+      "id": 1,
+      "description": "bug1",
+      "resolved": true
+    },
+    {
+      "id": 2,
+      "description": "bug2",
+      "resolved": true
+    },
+    {
+      "id": 3,
+      "description": "bug3",
+      "resolved": true
+    },
+    {
+      "id": 4,
+      "description": "bug4",
+      "resolved": true
+    },
+    {
+      "id": 5,
+      "description": "bug5",
+      "resolved": true
+    },
+    {
+      "id": 1667685680129,
+      "description": "hello",
+      "resolved": true
+    },
+    {
+      "id": 1667685680351,
+      "description": "hello",
+      "resolved": true
+    }
+  ]
 }
