@@ -10,7 +10,7 @@ let bugs = {
 export default function reducer(state = bugs, action) {
     switch (action.type) {
         case RESOLVE_BUG:
-            let updatedData = state.data.map(bug => bug.id === action.payload.id ? {...bug, resolved: true} : bug)
+            let updatedData = state.data.map(bug => bug.id === action.payload.id ? {...bug, resolved: !bug.resolved} : bug)
             return state = {...state, data: [...updatedData]}
         case REMOVE_BUG:
             let dataAfterRemove = state.data.filter(bug => bug.id !== action.payload.id)

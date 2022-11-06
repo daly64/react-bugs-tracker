@@ -13,14 +13,14 @@ function App() {
 
     const handleAdd = () => dispatch(addBug('hello'))
     const handleRemove = (id) => dispatch(removeBug(id))
-    const handleResolve = (id) => dispatch(resolveBug(id))
+    const handleResolve = (bug) => dispatch(resolveBug(bug))
 
     let bugsList = bugs && bugs.map(bug =>
         <li key={bug.id}>
             {bug.description}
             <button onClick={() => handleRemove(bug.id)}>remove</button>
             {bug.resolved ? 'yes' : 'no'}
-            <button onClick={() => handleResolve(bug.id)}>resolve</button>
+            <button onClick={() => handleResolve(bug)}>resolve</button>
         </li>)
 
     return <>
