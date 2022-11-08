@@ -1,9 +1,12 @@
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from "react-redux";
-import {addBug, getBugs, removeBug, resolveBug} from "./store/action.js";
+import {getBugs} from "./store2/bugsSlice.js";
+
+// import {addBug, getBugs, removeBug, resolveBug} from "./store/action.js";
 
 function App() {
-    let bugs = useSelector(state => state.data)
+    let bugs = useSelector(state => state.bugs.data)
+    let error = useSelector(state => state.bugs.error)
     // const state = useSelector(state => state)
     const dispatch = useDispatch()
     useEffect(() => {
@@ -28,7 +31,7 @@ function App() {
         <input type="text"/>
         <button onClick={handleAdd}> add</button>
         <ul>{bugsList}</ul>
-
+        <p>{error}</p>
     </>
 }
 
