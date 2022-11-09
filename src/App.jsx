@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from "react-redux";
-import {getBugs} from "./store2/bugsSlice.js";
+import {addBug, getBugs,removeBug,resolveBug} from "./store2/bugsSlice.js";
 
 // import {addBug, getBugs, removeBug, resolveBug} from "./store/action.js";
 
