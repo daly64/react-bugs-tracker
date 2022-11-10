@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from "react-redux";
-import {addBug, getBugs,removeBug,resolveBug} from "./store2/bugsSlice.js";
+import {addBug, getBugs, removeBug, updateBug} from "./store2/bugsSlice.js";
 
 // import {addBug, getBugs, removeBug, resolveBug} from "./store/action.js";
 
@@ -16,7 +16,7 @@ function App() {
 
     const handleAdd = () => dispatch(addBug('hello'))
     const handleRemove = (id) => dispatch(removeBug(id))
-    const handleResolve = (bug) => dispatch(resolveBug(bug))
+    const handleResolve = (bug) => dispatch(updateBug({...bug,resolved:!bug.resolved}))
 
     let bugsList = bugs && bugs.map(bug =>
         <li key={bug.id}>

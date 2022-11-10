@@ -2,9 +2,7 @@ import {ADD_BUG, FAILURE, GET_BUGS, LOADING, REMOVE_BUG, RESOLVE_BUG} from "./ac
 import produce from "immer";
 
 let bugs = {
-    isLoading: false,
-    data: [],
-    error: ''
+    isLoading: false, data: [], error: ''
 }
 
 // reducer
@@ -39,20 +37,16 @@ export default function reducer(state = bugs, action) {
             case RESOLVE_BUG:
                 draft.data = draft.data.map(bug => bug.id === action.payload.id ? resolveBug(bug) : bug)
                 break
-            case
-            REMOVE_BUG:
+            case REMOVE_BUG:
                 draft.data = draft.data.filter(bug => bug.id !== action.payload.id)
                 break
-            case
-            GET_BUGS:
+            case GET_BUGS:
                 draft.data = action.payload
                 break
-            case
-            ADD_BUG:
+            case ADD_BUG:
                 draft.data.push(action.payload)
                 break
-            case
-            LOADING:
+            case LOADING:
                 draft.isLoading = true
                 break
             case
